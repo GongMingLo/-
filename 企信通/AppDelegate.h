@@ -27,11 +27,6 @@ typedef void(^CompletionBlock)();
 @property (assign, nonatomic) BOOL isRegisterUser;
 
 /**
- *  用户是否登录成功
- */
-@property (assign, nonatomic) BOOL isUserLogon;
-
-/**
  *  连接到服务器
  *
  *  注释：用户信息保存在系统偏好中

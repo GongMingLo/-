@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginUser.h"
+#import "NSString+Helper.h"
 
 #define kNotificationUserLogonState @"NotificationUserLogon"
 
@@ -37,27 +38,12 @@
 
 @implementation AppDelegate
 
-#pragma mark - 通知中心
-#pragma mark 注册通知中心监控用户登录状态
-- (void)registerNotification
-{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    /*
-     参数说明
-     1. 通知中心的监听者
-     2. 发生通知时，调用的选择器方法
-     3. 发生的通知名称
-     4. 传递给选择器方法的对象
-     */
-    [center addObserver:self selector:@selector(loginStateChanged) name:kNotificationUserLogonState object:nil];
-}
-
-#pragma mark 用户登录状态变化（登录、注销）
-- (void)loginStateChanged
+#pragma mark 根据用户登录状态加载对应的Storyboard显示
+- (void)showStoryboardWithLogonState:(BOOL)isUserLogon
 {
     UIStoryboard *storyboard = nil;
     
-    if (_isUserLogon) {
+    if (isUserLogon) {
         // 显示Main.storyboard
         storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     } else {
@@ -67,10 +53,6 @@
     
     // 在主线程队列负责切换Storyboard，而不影响后台代理的数据处理
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.window == nil) {
-            self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        }
-        
         // 如果在项目属性中，没有指定主界面（启动的Storyboard，self.window不会被实例化）
         // 把Storyboard的初始视图控制器设置为window的rootViewController
         [self.window setRootViewController:storyboard.instantiateInitialViewController];
@@ -84,8 +66,8 @@
 #pragma mark - AppDelegate方法
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // 1. 注册通知中心，监控用户登录状态变化
-    [self registerNotification];
+    // 1. 实例化window
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // 2. 设置XMPPStream
     [self setupStream];
@@ -183,6 +165,13 @@
     NSString *hostName = [[LoginUser sharedLoginUser] hostName];
     NSString *userName = [[LoginUser sharedLoginUser] myJIDName];
     
+    // 如果没有主机名或用户名（通常第一次运行时会出现），直接显示登录窗口
+    if ([hostName isEmptyString] || [userName isEmptyString]) {
+        [self showStoryboardWithLogonState:NO];
+        
+        return;
+    }
+    
     // 3. 设置XMPPStream的JID和主机
     [_xmppStream setMyJID:[XMPPJID jidWithString:userName]];
     [_xmppStream setHostName:hostName];
@@ -229,9 +218,8 @@
     // 1. 通知服务器下线，并断开连接
     [self disconnect];
     
-    // 2. 发送消息给通知中心，切换Storyboard
-    _isUserLogon = NO;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserLogonState object:nil];
+    // 2. 显示用户登录Storyboard
+    [self showStoryboardWithLogonState:NO];
 }
 
 #pragma mark - 代理方法
@@ -264,32 +252,39 @@
 {
     _isRegisterUser = NO;
     if (_faildBlock != nil) {
-        _faildBlock();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _faildBlock();
+        });
     }
 }
 
 #pragma mark 身份验证通过
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
-    _isUserLogon = YES;
-    
     if (_completionBlock != nil) {
-        _completionBlock();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _completionBlock();
+        });
     }
     
     // 通知服务器用户上线
     [self goOnline];
     
-    // 发送消息给通知中心，告知用户登录成功
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserLogonState object:nil];
+    // 显示主Storyboard
+    [self showStoryboardWithLogonState:YES];
 }
 
 #pragma mark 密码错误，身份验证失败
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error
 {
     if (_faildBlock != nil) {
-        _faildBlock();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _faildBlock();
+        });
     }
+    
+    // 显示用户登录Storyboard
+    [self showStoryboardWithLogonState:NO];
 }
 
 @end
