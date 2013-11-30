@@ -152,6 +152,8 @@
 		18F2578818497B0400C803A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2578718497B0400C803A6 /* LoginViewController.m */; };
 		18F2579018497B5100C803A6 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2578B18497B5100C803A6 /* NSArray+Log.m */; };
 		18F2579118497B5100C803A6 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2578D18497B5100C803A6 /* NSString+Helper.m */; };
+		18F257941849837800C803A6 /* LoginUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F257931849837800C803A6 /* LoginUser.m */; };
+		18F25797184999BC00C803A6 /* VCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F25796184999BC00C803A6 /* VCardViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -451,6 +453,10 @@
 		18F2578C18497B5100C803A6 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
 		18F2578D18497B5100C803A6 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
 		18F2578F18497B5100C803A6 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		18F257921849837800C803A6 /* LoginUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginUser.h; sourceTree = "<group>"; };
+		18F257931849837800C803A6 /* LoginUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginUser.m; sourceTree = "<group>"; };
+		18F25795184999BC00C803A6 /* VCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCardViewController.h; sourceTree = "<group>"; };
+		18F25796184999BC00C803A6 /* VCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCardViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1325,6 +1331,8 @@
 			isa = PBXGroup;
 			children = (
 				18F25782184976DC00C803A6 /* Main.storyboard */,
+				18F25795184999BC00C803A6 /* VCardViewController.h */,
+				18F25796184999BC00C803A6 /* VCardViewController.m */,
 			);
 			path = IM;
 			sourceTree = "<group>";
@@ -1335,6 +1343,8 @@
 				18F25784184976E800C803A6 /* Login.storyboard */,
 				18F2578618497B0400C803A6 /* LoginViewController.h */,
 				18F2578718497B0400C803A6 /* LoginViewController.m */,
+				18F257921849837800C803A6 /* LoginUser.h */,
+				18F257931849837800C803A6 /* LoginUser.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1521,6 +1531,7 @@
 				18F257021849757600C803A6 /* NSData+XMPP.m in Sources */,
 				18F255941849751B00C803A6 /* AppDelegate.m in Sources */,
 				18F2571D1849757600C803A6 /* XMPPIQ+JabberRPCResonse.m in Sources */,
+				18F25797184999BC00C803A6 /* VCardViewController.m in Sources */,
 				18F257241849757600C803A6 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				18F257641849757600C803A6 /* GCDMulticastDelegate.m in Sources */,
 				18F257171849757600C803A6 /* XMPPResourceMemoryStorageObject.m in Sources */,
@@ -1577,6 +1588,7 @@
 				18F2573D1849757600C803A6 /* NSXMLElement+XEP_0059.m in Sources */,
 				18F2574B1849757600C803A6 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				18F257461849757600C803A6 /* XMPPMessage+XEP_0085.m in Sources */,
+				18F257941849837800C803A6 /* LoginUser.m in Sources */,
 				18F2570D1849757600C803A6 /* XMPPBandwidthMonitor.m in Sources */,
 				18F257221849757600C803A6 /* XMPPRoom.xcdatamodeld in Sources */,
 				18F257141849757600C803A6 /* XMPPRoster.xcdatamodel in Sources */,

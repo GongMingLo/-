@@ -9,7 +9,7 @@
         <scene sceneID="dRe-cd-J7I">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="QGM-hp-Rnn" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="PUs-fk-GtM">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -101,10 +101,10 @@
             </objects>
             <point key="canvasLocation" x="1052" y="415"/>
         </scene>
-        <!--Table View Controller - 我的名片-->
+        <!--Card View Controller - 我的名片-->
         <scene sceneID="Gug-sh-cTi">
             <objects>
-                <tableViewController id="2Yc-gv-CzI" sceneMemberID="viewController">
+                <tableViewController id="2Yc-gv-CzI" customClass="VCardViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zQ0-Cq-Aby">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -120,7 +120,13 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="我的名片" id="gcu-RF-pWK"/>
+                    <navigationItem key="navigationItem" title="我的名片" id="gcu-RF-pWK">
+                        <barButtonItem key="rightBarButtonItem" title="注销" id="ayc-oR-4uD">
+                            <connections>
+                                <action selector="logout:" destination="2Yc-gv-CzI" id="YkU-sp-OeT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bl6-S9-AOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -101,23 +101,29 @@
     
     // 3. 让AppDelegate开始连接
     // 告诉AppDelegate，当前是注册用户
-    NSString *actionName = nil;
+    NSString *errorMessage = nil;
     
-//    if (button.tag == 1) {
-//        [self appDelegate].isRegisterUser = YES;
-//        actionName = @"注册用户";
-//    } else {
-//        actionName = @"用户登录";
-//    }
-//    
-//    [[self appDelegate] connectWithCompletion:^{
-//        NSLog(@"%@成功！", actionName);
-//        
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserLogonState object:nil];
-//        
-//    } failed:^{
-//        NSLog(@"%@失败！", actionName);
-//    }];
+    if (button.tag == 1) {
+        [self appDelegate].isRegisterUser = YES;
+        errorMessage = @"注册用户失败！";
+    } else {
+        errorMessage = @"用户登录失败！";
+    }
+    
+    [[self appDelegate] connectWithCompletion:nil failed:^{
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:errorMessage delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
+        [alter show];
+        
+        if (button.tag == 1) {
+            // 注册用户失败通常是因为用户名重复
+            [_userNameText becomeFirstResponder];
+        } else {
+            // 登录失败通常是密码输入错误
+            [_passwordText setText:@""];
+            [_passwordText becomeFirstResponder];
+        }
+    }];
 }
 
 @end
