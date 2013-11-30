@@ -19,7 +19,7 @@
 #pragma mark 是否空字符串
 - (BOOL)isEmptyString
 {
-    return (self == nil || self.length == 0);
+    return (self.length == 0);
 }
 
 #pragma mark 返回沙盒中的文件路径

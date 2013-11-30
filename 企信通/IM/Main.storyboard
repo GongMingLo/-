@@ -69,11 +69,37 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="企业名册" id="odF-Oe-Pvq"/>
+                    <navigationItem key="navigationItem" title="企业名册" id="odF-Oe-Pvq">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="3fr-VE-3Pz"/>
+                        <barButtonItem key="rightBarButtonItem" title="临时" id="UC6-GM-Hkv">
+                            <connections>
+                                <segue destination="Qw0-Ya-w0I" kind="push" id="2d8-Z7-Uaf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqV-Rd-UGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="573" y="407"/>
+        </scene>
+        <!--View Controller - 修改个人信息-->
+        <scene sceneID="1LA-8W-pug">
+            <objects>
+                <viewController id="Qw0-Ya-w0I" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ht2-yy-sgm"/>
+                        <viewControllerLayoutGuide type="bottom" id="PiK-B6-9wz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hVV-Co-HLE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="修改个人信息" id="p8D-rx-CyN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s1t-1m-UjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1052" y="415"/>
         </scene>
         <!--Table View Controller - 我的名片-->
         <scene sceneID="Gug-sh-cTi">

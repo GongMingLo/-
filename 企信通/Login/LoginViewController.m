@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "NSString+Helper.h"
 #import "AppDelegate.h"
+#import "LoginUser.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 
@@ -33,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    // 拉伸按钮背景图片
+    // 1. 拉伸按钮背景图片
     // 1) 登录按钮
     UIImage *loginImage = [UIImage imageNamed:@"LoginGreenBigBtn"];
     loginImage = [loginImage stretchableImageWithLeftCapWidth:loginImage.size.width * 0.5 topCapHeight:loginImage.size.height * 0.5];
@@ -44,9 +45,17 @@
     registerImage = [registerImage stretchableImageWithLeftCapWidth:registerImage.size.width * 0.5 topCapHeight:registerImage.size.height * 0.5];
     [_registerButton setBackgroundImage:registerImage forState:UIControlStateNormal];
     
-//    _userNameText.text = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPUserNameKey];
-//    _hostNameText.text = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPHostNameKey];
-
+    // 2. 设置界面文本的初始值
+    _userNameText.text = [[LoginUser sharedLoginUser] userName];
+    _passwordText.text = [[LoginUser sharedLoginUser] password];
+    _hostNameText.text = [[LoginUser sharedLoginUser] hostName];
+    
+    // 3. 设置文本焦点
+    if ([_userNameText.text isEmptyString]) {
+        [_userNameText becomeFirstResponder];
+    } else {
+        [_passwordText becomeFirstResponder];
+    }
 }
 
 #pragma mark UITextField代理方法
@@ -54,7 +63,7 @@
 {
     if (textField == _userNameText) {
         [_passwordText becomeFirstResponder];
-    } else if (textField == _passwordText) {
+    } else if (textField == _passwordText && [_hostNameText.text isEmptyString]) {
         [_hostNameText becomeFirstResponder];
     } else {
         [self userLoginAndRegister:nil];
@@ -86,9 +95,9 @@
     }
     
     // 2. 将用户登录信息写入系统偏好
-//    [userName saveToNSDefaultsWithKey:kXMPPUserNameKey];
-//    [password saveToNSDefaultsWithKey:kXMPPPasswordKey];
-//    [hostName saveToNSDefaultsWithKey:kXMPPHostNameKey];
+    [[LoginUser sharedLoginUser] setUserName:userName];
+    [[LoginUser sharedLoginUser] setPassword:password];
+    [[LoginUser sharedLoginUser] setHostName:hostName];
     
     // 3. 让AppDelegate开始连接
     // 告诉AppDelegate，当前是注册用户
